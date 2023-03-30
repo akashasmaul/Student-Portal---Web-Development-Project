@@ -5,75 +5,134 @@
 <title>Student Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-/* Style for the profile button */
-.profile {
-  float: right;
-  margin-top: 15px;
-  margin-right: 30px;
-  background-color: #f2f2f2;
-  border: none;
-  color: black;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-/* Style for the navigation icons */
-.nav-icons {
-  font-size: 24px;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-}
-/* Active class for the selected navigation icon */
-.active {
-  background-color: #4CAF50;
-  color: white;
-}
-/* Style for the modal dialog */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%;
-  border-radius: 5px;
-}
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 
 <head>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' />
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
-</head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+  left: 'prevYear,prev,next,nextYear today',
+  center: 'title',
+  right: 'dayGridMonth,dayGridWeek,dayGridDay'
+},
+
+navLinks: true, // can click day/week names to navigate views
+editable: true,
+initialView: 'dayGridMonth',
+color: 'red',
+ eventColor: 'white',
+ backgroundColor: 'white',
+ 
+
+  });
+
+  // define the event data
+  var eventData = JSON.parse(localStorage.getItem('eventData')) || [
+        
+        ];
+
+  // add the event data to the calendar
+  calendar.addEventSource(eventData);
+   // set the colors of the events
+
+   var events = calendar.getEvents();
+        for (var i = 0; i < events.length; i++) {
+          var event = events[i];
+          var color = event.extendedProps.color;
+          if (color) {
+            event.setProp('backgroundColor', color);
+            event.setProp('borderColor', color);
+          }
+        }
+
+  // add button click event to add events dynamically
+  document.getElementById('add-event-btn').addEventListener('click', function() {
+    var title = prompt('Enter event title:');
+    if (title) {
+      var start = prompt('Enter start date/time (YYYY-MM-DD HH:MM:SS):');
+      var end = prompt('Enter end date/time (YYYY-MM-DD HH:MM:SS):');
+      var color = prompt('Enter color (hex code or name):');
+      var eventData = {
+        title: title,
+              start: start,
+              end: end,
+              color: color,
+              backgroundColor: color,
+              eventColor: color
+      };
+      calendar.addEvent(eventData);
+            eventData = calendar.getEvents().map(function(event) {
+              return {
+                title: event.title,
+                  start: event.start,
+                  end: event.end,
+                  color: event.color
+              
+              };
+            });
+            localStorage.setItem('eventData', JSON.stringify(eventData));
+          }
+  });
+  // add event click event to edit events dynamically
+  calendar.on('eventClick', function(info) {
+  var edit = confirm("Do you want to edit this event?");
+  if (edit) {
+    var title = prompt('Enter event title:', info.event.title);
+    if (title) {
+      var start = prompt('Enter start date/time (YYYY-MM-DD HH:MM:SS):', info.event.startStr);
+      var end = prompt('Enter end date/time (YYYY-MM-DD HH:MM:SS):', info.event.endStr);
+      var color = prompt('Enter color:', info.event.color);
+      var eventData = {
+        title: title,
+        start: start,
+        end: end,
+        color: color
+      };
+      info.event.setProp('title', title);
+      info.event.setStart(start);
+      info.event.setEnd(end);
+      info.event.setProp('color', color);
+      eventData = calendar.getEvents().map(function(event) {
+        return {
+          title: event.title,
+          start: event.start,
+          end: event.end,
+          color: event.color
+        };
+      });
+      localStorage.setItem('eventData', JSON.stringify(eventData));
+    }
+  } else {
+    if (confirm("Are you sure you want to delete this event?")) {
+      info.event.remove();
+      var eventData = calendar.getEvents().map(function(event) {
+        return {
+          title: event.title,
+          start: event.start,
+          end: event.end,
+          color: event.color
+        };
+      });
+      localStorage.setItem('eventData', JSON.stringify(eventData));
+    }
+  }
+});
+         // set the event color when rendering events on the calendar
+  calendar.on('eventRender', function(info) {
+    info.el.style.backgroundColor = info.event.backgroundColor;
+  });
+
+  calendar.render();
+});
+
+</script>
+  </head>
 
 <body>
 <!-- Sidebar -->
@@ -88,51 +147,15 @@
 <div style="margin-left:20%">
 
   <h1>Student Portal</h1>
-  <a href="portal/portal.php" class="profile"> <?= $user['name'] ?></a>  
+  <a href="portal/portal.php" class="profile"> <?= $user['name'] ?></a>
+  <br><br><br><br>
 
-  <!-- Calendar container -->
-  <div id='calendar'></div>
+<div class="w3-container">
+<div>
+      <button id='add-event-btn' >Add Event</button>
+    </div>
+    <div id='calendar'></div>
 
-  <!-- "Add task" modal dialog -->
-  <div id="add-task-modal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-<h2>Add Task</h2>
-<form action="add_task.php" method="post">
-<label for="task-name">Task Name:</label>
-<input type="text" id="task-name" name="task-name" required><br><br>
-<label for="task-date">Task Date:</label>
-<input type="date" id="task-date" name="task-date" required><br><br>
-<button type="submit" class="w3-button w3-green">Add Task</button>
-</form>
 </div>
-
-  </div>
-</div>
-<script>
-  // Calendar initialization
-  $(document).ready(function() {
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-      },
-      defaultDate: Date.now(),
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: 'get_tasks.php', // URL for fetching events
-      // "Add task" modal dialog
-      dayClick: function(date, jsEvent, view) {
-        $('#add-task-modal').css("display", "block");
-        $('#task-date').val(moment(date).format("YYYY-MM-DD"));
-      },
-      // Close modal dialog
-      $(".close").click(function() {
-        $("#add-task-modal").css("display", "none");
-      });
-    });
-  });
-</script>
 </body>
 </html>
