@@ -66,13 +66,14 @@
 
 <script>
   
-function addSubSubSector() {
+  function addSubSubSector() {
   var activeSector = document.querySelector(".sector-heading.active");
+  var newCourse = prompt("Enter the name of the course:");
   if (activeSector.nextElementSibling && activeSector.nextElementSibling.classList.contains("sub-sector")) {
     var subSector = activeSector.nextElementSibling;
     var newSubSubSector = document.createElement("a");
     newSubSubSector.className = "w3-bar-item w3-button sub-subsector";
-    newSubSubSector.textContent = "New Course";
+    newSubSubSector.textContent = newCourse;
     subSector.appendChild(newSubSubSector);
   }
 }

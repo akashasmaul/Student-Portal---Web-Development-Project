@@ -31,7 +31,7 @@
 <!-- Page Content -->
 <div style="margin-left:50%">
 
-  <h1>Select Year</h1>
+  <h1>Select Option</h1>
   <a href="../portal/portal.php" class="profile"> <?= $user['name'] ?></a>
   
 </div>
