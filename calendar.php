@@ -145,10 +145,11 @@ color: 'red',
 </div>
 <!-- Page Content -->
 <div style="margin-left:20%">
-
-  <h1>Student Portal</h1>
-  <a href="portal/portal.php" class="profile"> <?= $user['name'] ?></a>
-  <br><br><br><br>
+<a href="portal/portal.php" class="profile"> <?= $user['name'] ?></a>
+<a href="logout/logout.php" class="profile"> Logout</a>
+  <h1>Calendar</h1>
+  
+  <br><br>
 
 <div class="w3-container">
 <div>

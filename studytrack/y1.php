@@ -1,4 +1,4 @@
-<?php include '../conn.php' ?>
+<?php include 'conn.php' ?>
 
 <!DOCTYPE html>
 <html>
@@ -37,10 +37,12 @@
 </div>
 <!-- Page Content -->
 <div style="margin-left:35%">
-
+<a href="../portal/portal.php" class="profile"> <?= $user['name'] ?></a>
+<a href="../logout/logout.php" class="profile"> Logout</a>
+<br>
   <h1>First Year</h1>
-  <a href="../portal/portal.php" class="profile"> <?= $user['name'] ?></a>
   
+  <br>
 
   <h2 class="w3-center">Object Oriented Programming</h2>
 <div class="w3-container">

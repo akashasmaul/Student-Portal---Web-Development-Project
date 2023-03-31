@@ -1,4 +1,4 @@
-<?php include '../conn.php' ?>
+<?php include 'conn.php' ?>
 
 <!DOCTYPE html>
 <html>
@@ -36,6 +36,7 @@
 
   
   <a href="../portal/portal.php" class="profile"> <?= $user['name'] ?></a>
+  
    <!-- the grade section -->
    <section class="section">
         <div class="container" >
@@ -50,7 +51,7 @@
                         </figure>
                         <div class="media-content">
                             <div class="content">
-                                <h1 class="title is-size-3 has-text-black" id="grade_head">Your average grade is...</h1>
+                                <h1 class="title is-size-3 has-text-black" id="grade_head">Your average mark is...</h1>
                                 <p class="title is-size-1 center has-text-gray" id="grade_final">0.00</p>
                                 <p class="subtitle is size-2 center has-text-dark" id="grade_weight">with combined weight of 0.00</p>
                             </div>
@@ -69,9 +70,9 @@
                         <div class="media-content">
                             <div class="content">
 
-                                <h1 class="title is-size-5 has-text-black">Enter your grades here.</h1>
+                                <h1 class="title is-size-5 has-text-black">Enter your marks here.</h1>
                                 <h1 class="subtitle is-size-6 has-text-gray">
-                                    grades in the left (blue) column, weights in the right (red) column
+                                    marks in the left (blue) column, weights in the right (red) column
                                     <br class="is-size-4"> tip: you can <strong><i>tab</i></strong> through the list.
                                 </h1>
 

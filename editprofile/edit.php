@@ -42,10 +42,12 @@ $name_err = $email_err = $password_err = $confirm_password_err = $profile_pic_er
 <head>
     <meta charset="UTF-8">
     <title>Edit Profile</title>
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<button type="button" class="profile" onclick="index()">Dashbord</button>
 <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
@@ -103,5 +105,10 @@ $name_err = $email_err = $password_err = $confirm_password_err = $profile_pic_er
         </form>
         </div>
     </div>
+    <script>
+        function index() {
+            window.location.href = "../index.php";
+        }
+        </script>
 </body>
 </html>

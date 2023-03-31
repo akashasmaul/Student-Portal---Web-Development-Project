@@ -1,4 +1,4 @@
-<?php include '../conn.php' ?>
+<?php include 'conn.php' ?>
 
 <!DOCTYPE html>
 <html>
@@ -32,8 +32,13 @@
 
 <!-- Page Content -->
 <div style="margin-left:34%">
-  <h1>Machine Learning</h1>
-  <a href="../portal/portal.php" class="profile"><?= $user['name'] ?></a>
+
+<a href="../portal/portal.php" class="profile"> <?= $user['name'] ?></a>
+<a href="../logout/logout.php" class="profile"> Logout</a>
+<br>
+<center>
+  <h1>Machine Learning</h1> </center>
+ 
 
 
 <div class="w3-container">

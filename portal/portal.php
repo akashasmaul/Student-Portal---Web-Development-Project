@@ -40,12 +40,15 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <title>Portal</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<button type="button" class="profile" onclick="index()">Dashbord</button>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-5">
+            <div class="col-md-6 col-lg-5"> 
                 <div class="card">
                     <div class="card-header">
                         <h2 class="text-center"><?= $row['name'] ?>'s Profile</h2>
@@ -87,6 +90,10 @@ mysqli_close($conn);
         }
         function logout() {
             window.location.href = "../logout/logout.php";
+        }
+
+        function index() {
+            window.location.href = "../index.php";
         }
     </script>
 </body>
