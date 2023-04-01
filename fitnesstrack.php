@@ -21,7 +21,7 @@
 <!-- Second sidebar -->
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:17%; margin-left: 250px;">
   <h3 class="w3-bar-item">Fitness Tracking</h3>
-  <a href="fitness/exercise.php" class="w3-bar-item w3-button sector-heading ">Excercise Tracking</a> 
+  <a href="fitness/exercise.php" class="w3-bar-item w3-button sector-heading ">Excercise Diary</a> 
    <a href="fitness/food.php" class="w3-bar-item w3-button sector-heading  ">Food Diary    </a>  
    
    

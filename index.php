@@ -16,13 +16,17 @@
   <a href="fitnesstrack.php" class="w3-bar-item w3-button nav-icons"> Fitness Tracking  </a>
 </div>
 <!-- Page Content -->
-<div style="margin-left:50%">
+<div style="margin-left:30%">
 <a href="portal/portal.php" class="profile"> <?= $user['name'] ?></a>
 <a href="logout/logout.php" class="profile"> Logout</a>
 
   <h1>Student Portal</h1>
  
-  
+  <br><br><br>
+  <h1>Welcome, <?= $user['name'] ?></h1>
+  <br><br>
+  <h3>Select options from the sidebar </h3>
+
 </div>
 <div class="w3-container">
 
