@@ -1,3 +1,8 @@
+<! --
+profile page
+shows user informations
+ --!>
+
 <?php
 // Start the session
 session_start();

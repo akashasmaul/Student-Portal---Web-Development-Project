@@ -6,17 +6,17 @@ edit food  record breakfast
 <?php
 if (isset($_GET["id"])) {
     $id = (int) $_GET["id"];
-    $getfile = file_get_contents('../data/storage.json');
+    $getfile = file_get_contents('../data/dinner.json');
     $jsonfile = json_decode($getfile, true);
-    $jsonfile = $jsonfile["food"];
+    $jsonfile = $jsonfile["dinner"];
     $jsonfile = $jsonfile[$id];
 }
 
 if (isset($_POST["id"])) {
     $id = (int) $_POST["id"];
-    $getfile = file_get_contents('../data/storage.json');
+    $getfile = file_get_contents('../data/dinner.json');
     $all = json_decode($getfile, true);
-    $jsonfile = $all["food"];
+    $jsonfile = $all["dinner"];
     $jsonfile = $jsonfile[$id];
 
     $post["name"] = isset($_POST["name"]) ? $_POST["name"] : "";
@@ -29,10 +29,10 @@ if (isset($_POST["id"])) {
 
 
     if ($jsonfile) {
-        unset($all["food"][$id]);
-        $all["food"][$id] = $post;
-        $all["food"] = array_values($all["food"]);
-        file_put_contents("../data/storage.json", json_encode($all));
+        unset($all["dinner"][$id]);
+        $all["dinner"][$id] = $post;
+        $all["dinner"] = array_values($all["dinner"]);
+        file_put_contents("../data/dinner.json", json_encode($all));
     }
     header("Location: calbymeal.php");
 }
@@ -80,7 +80,7 @@ if (isset($_POST["id"])) {
 <br><br><br><br>
 
 <?php if (isset($_GET["id"])): ?>
-    <form class="w3-container w3-card-4 w3-light-grey" action="editfood.php" method="POST">
+    <form class="w3-container w3-card-4 w3-light-grey" action="editdinner.php" method="POST">
     <br>
         <input type="hidden" value="<?php echo $id ?>" name="id"/>
         <label class="w3-text-black">Name</label>
@@ -106,13 +106,13 @@ if (isset($_POST["id"])) {
 
 
 <?php
-if (isset($_POST["add"])) {
-    $file = file_get_contents('storage.json');
+if (isset($_POST["add2"])) {
+    $file = file_get_contents('../data/dinner.json');
     $data = json_decode($file, true);
-    unset($_POST["add"]);
-    $data["food"] = array_values($data["food"]);
-    array_push($data["food"], $_POST);
-    file_put_contents("storage.json", json_encode($data));
+    unset($_POST["add2"]);
+    $data["dinner"] = array_values($data["dinner"]);
+    array_push($data["dinner"], $_POST);
+    file_put_contents("../data/dinner.json", json_encode($data));
     header("Location: calbymeal.php");
 }
 ?>

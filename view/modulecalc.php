@@ -1,3 +1,8 @@
+<! --
+module calculator Page
+% calculation from weighted marks
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

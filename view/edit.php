@@ -1,3 +1,8 @@
+<! --
+edit / update  profile page
+
+ --!>
+
 <?php
 // Start the session
 session_start();

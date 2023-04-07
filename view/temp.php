@@ -1,5 +1,5 @@
 <!--
-	food diary page
+	calories by meal page
 -->
 
 <?php include '../control/conn.php' ?>
@@ -28,22 +28,60 @@
   <a href="exercise.php" class="w3-bar-item w3-button sector-heading ">Excercise Tracking</a> 
    <a href="food.php" class="w3-bar-item w3-button sector-heading active ">Food Diary </a> 
    <div class="w3-bar-block sub-sector">
-    <a href="dng.php" class="w3-bar-item w3-button sub-subsector">Daily Neutrition Goals</a> 
-	<a href="calbymeal.php" class="w3-bar-item w3-button sub-subsector">Calories by Meals</a>  
+    <a href="dng.php" class="w3-bar-item w3-button sub-subsector ">Daily Neutrition Goals</a> 
+	<a href="calbymeal.php" class="w3-bar-item w3-button sub-subsector active">Calories by Meals</a>  
     
     </div> 
    
    
 </div>
+
+<?php
+$getfile = file_get_contents('../data/storage.json');
+$jsonfile = json_decode($getfile);
+?>
 <!-- Page Content -->
 <div style="margin-left:35%">
 <a href="portal.php" class="profile"> <?= $user['name'] ?></a>
 <a href="logout.php" class="profile"> Logout</a>
 <br>
-<h2> Select Option</h2>
-  
 
-</div>
+<h1>Daily Meal Tracker</h1>
+	
+		<h2>Breakfast</h2>
+		
+		<table class="w3-table-all w3-margin-top">
+			<tr>
+				<th>Name</th>
+				<th>Serving size (g)</th>
+				<th>Calories (kcal)</th>
+				<th>Carbs (g)</th>
+				<th>Protein (g)</th>
+				<th>Fats (g)</th>
+			</tr>
+			<tbody>
+	    <?php foreach ($jsonfile->food as $index => $obj): ?>
+	        <tr>
+	            <td><?php echo $obj->name; ?></td>
+	            <td><?php echo $obj->quantity; ?></td>
+	            <td><?php echo $obj->kcal; ?></td>
+	            <td><?php echo $obj->carbs; ?></td>
+				<td><?php echo $obj->protein; ?></td>
+	            <td><?php echo $obj->fats; ?></td>
+	            <td>
+	                <a href="editfood.php?id=<?php echo $index; ?>" class="w3-button w3-blue">Edit</a>
+	                <a href="delete.php?id=<?php echo $index; ?>" class="w3-button w3-red">Delete</a>
+	            </td>
+	        </tr>
+	    <?php endforeach; ?>
+	    </tbody>
+		</table>
+		<a class="w3-button w3-green" href="addbreakfast.php">Add Breakfast</a>
+
+		<br><br>
+
+		
+		
 
 </body>
 </html>

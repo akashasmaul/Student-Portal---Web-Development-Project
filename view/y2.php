@@ -1,3 +1,10 @@
+<!--
+
+year 2 page 
+for add  new assignments or task
+for adding  new module
+-->
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>
@@ -95,6 +102,29 @@
 </div>
 
 
+<script>
+  function addSubSubSector() {
+  var activeSector = document.querySelector(".sector-heading.active");
+  var newYear = prompt("Enter the number of the year:");
+  if (activeSector.nextElementSibling && activeSector.nextElementSibling.classList.contains("sub-sector")) {
+    var subSector = activeSector.nextElementSibling;
+    var newSubSubSector = document.createElement("div");
+    newSubSubSector.className = "w3-bar";
+    var newSubSubSectorText = document.createElement("a");
+    newSubSubSectorText.className = "w3-bar-item w3-button sub-subsector";
+    newSubSubSectorText.textContent = "Year " + newYear;
+    newSubSubSector.appendChild(newSubSubSectorText);
+    var removeButton = document.createElement("button");
+    removeButton.className = "";
+    removeButton.textContent = "x";
+    removeButton.onclick = function() {
+      newSubSubSector.remove();
+    };
+    newSubSubSector.appendChild(removeButton);
+    subSector.appendChild(newSubSubSector);
+  }
+}
+</script>
 
 </body>
 </html>

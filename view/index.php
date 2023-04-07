@@ -1,3 +1,8 @@
+<! --
+dashbord page, need to select option
+shows name fetched from database
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

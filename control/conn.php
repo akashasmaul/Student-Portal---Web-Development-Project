@@ -1,3 +1,9 @@
+<! --
+
+code page for connection database
+
+ --!>
+
 <?php
 // Start the session
 session_start();
@@ -15,11 +21,12 @@ define('DB_PASS', '');
 define('DB_NAME', 'info');
 
 // Create database connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-// Check database connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+try {
+    $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
 }
 
 // Get the logged in user's email
@@ -28,11 +35,20 @@ $username = $_SESSION['username'];
 
 // Get user information from database
 $username = $_SESSION['username'];
-$sql = "SELECT * FROM users WHERE username='$username'";
-$result = mysqli_query($conn, $sql);
-$user = mysqli_fetch_assoc($result);
+$sql = "SELECT * FROM users WHERE username=:username";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':username', $username);
+$stmt->execute();
+$user = $stmt->fetch();
 
 
 // Close the database connection
-mysqli_close($conn);
+$conn = null;
 ?>
+
+<! --
+This code uses PDO instead of mysqli and uses prepared statements to prevent SQL injection attacks¹.
+ Prepared statements are a feature of PDO that allows you to execute a query multiple times with different parameters¹.
+ This code also uses try-catch blocks to handle exceptions that may occur during database connection¹.
+
+ --!>

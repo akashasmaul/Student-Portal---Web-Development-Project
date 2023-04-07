@@ -1,3 +1,10 @@
+<! --
+This code uses PDO instead of mysqli and uses prepared statements to prevent SQL injection attacks¹.
+
+code for remove profile picture
+
+ --!>
+
 <?php
 // Start the session
 session_start();
@@ -15,18 +22,22 @@ define('DB_PASS', '');
 define('DB_NAME', 'info');
 
 // Create database connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+$username = DB_USER;
+$password = DB_PASS;
 
-// Check database connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+try {
+    $pdo = new PDO($dsn, $username, $password);
+} catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
 }
 
 // Get user information from database
 $username = $_SESSION['username'];
-$sql = "SELECT * FROM users WHERE username='$username'";
-$result = mysqli_query($conn, $sql);
-$user = mysqli_fetch_assoc($result);
+$sql = "SELECT * FROM users WHERE username=:username";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['username' => $username]);
+$user = $stmt->fetch();
 
 // Delete the current profile picture from the server
 if (!empty($user['profile_picture'])) {
@@ -37,12 +48,11 @@ if (!empty($user['profile_picture'])) {
 }
 
 // Update the user profile in the database to remove the profile picture
-$sql = "UPDATE users SET profile_picture='' WHERE username='$username'";
-if (mysqli_query($conn, $sql)) {
-    // Redirect to the edit profile page
-    header("Location: ../view/edit.php");
-    exit();
-} else {
-    echo "Error updating profile: " . mysqli_error($conn);
-}
+$sql = "UPDATE users SET profile_picture='' WHERE username=:username";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(['username' => $username]);
+
+// Redirect to the edit profile page
+header("Location: ../view/edit.php");
+exit();
 ?>

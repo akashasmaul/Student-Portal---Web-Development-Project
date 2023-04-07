@@ -1,4 +1,7 @@
+<! --
+Add a food details  breakfast
 
+ --!>
 
 <?php include '../control/conn.php' ?>
 
@@ -25,7 +28,11 @@
   <h3 class="w3-bar-item">Fitness Tracking</h3>
   <a href="exercise.php" class="w3-bar-item w3-button sector-heading ">Excercise Tracking</a> 
    <a href="food.php" class="w3-bar-item w3-button sector-heading active ">Food Diary </a>  
-   
+   <div class="w3-bar-block sub-sector">
+    <a href="dng.php" class="w3-bar-item w3-button sub-subsector ">Daily Neutrition Goals</a> 
+	<a href="calbymeal.php" class="w3-bar-item w3-button sub-subsector active">Calories by Meals</a>  
+    
+    </div>
    
 </div>
 <!-- Page Content -->
@@ -35,21 +42,24 @@
 <br>
 
 <div class="w3-container">
-    <form class="w3-container" action="add.php" method="POST">
+    <form class="w3-container" action="addbreakfast.php" method="POST">
         <label>Name:</label>
         <input class="w3-input" type="text" name="name" size="50" placeholder="Name"/><br>
 
-        <label>Quantity:</label>
-    <input class="w3-input" type="text" name="quantity" size="50" maxlength="2" placeholder="Quantity"/><br>
+        <label>Serving size (g):</label>
+    <input class="w3-input" type="text" name="quantity" size="50" maxlength="4" placeholder="Quantity"/><br>
 
-    <label>Kcal:</label>
+    <label>Calories (kcal):</label>
     <input class="w3-input" type="text" name="kcal" size="50" maxlength="4" placeholder="Kcal"/><br>
 
-    <label>Notes:</label>
-    <input class="w3-input" type="text" name="notes" size="50" placeholder="Notes"/><br>
+    <label>Carbs (g):</label>
+    <input class="w3-input" type="text" name="carbs" size="50" placeholder="gram"/><br>
+    
+    <label>Protein (g):</label>
+    <input class="w3-input" type="text" name="protein" size="50" placeholder="gram"/><br>
 
-    <label>Time:</label>
-    <input class="w3-input" type="text" name="time" size="50" placeholder="D.M.Y-H:M"/><br>
+    <label>Fats (g):</label>
+    <input class="w3-input" type="text" name="fats" size="50" ><br>
 
     <input class="w3-button w3-green" type="submit" name="add" value="Add"/>
     <button type="button" class="w3-button w3-red" onclick="cancel()">Cancel</button>
@@ -59,7 +69,6 @@
 
 
 <?php
-$time = date("d.m.Y-H:i");
 if (isset($_POST["add"])) {
     $file = file_get_contents('../data/storage.json');
     $data = json_decode($file, true);
@@ -67,7 +76,7 @@ if (isset($_POST["add"])) {
     $data["food"] = array_values($data["food"]);
     array_push($data["food"], $_POST);
     file_put_contents("../data/storage.json", json_encode($data));
-    header("Location: food.php");
+    header("Location: calbymeal.php");
 }
 ?>
   
@@ -76,7 +85,7 @@ if (isset($_POST["add"])) {
 
 <script>
         function cancel() {
-            window.location.href = "food.php";
+            window.location.href = "calbymeal.php";
         }
         </script>
 </body>

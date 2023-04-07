@@ -1,3 +1,7 @@
+<! --
+registation page
+ --!>
+
 <?php
 
 session_start();

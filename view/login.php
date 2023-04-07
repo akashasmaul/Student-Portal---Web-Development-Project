@@ -1,3 +1,7 @@
+<! --
+log in page, verifies credentials from database
+ --!>
+
 <?php
 // Start the session
 session_start();

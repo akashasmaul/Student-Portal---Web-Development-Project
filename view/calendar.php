@@ -1,3 +1,8 @@
+<! --
+calendar page, includes full calendar.io
+
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

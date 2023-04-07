@@ -1,3 +1,11 @@
+<! --
+year calculation page as the reqirements 
+First class (1st) is equivalent to => 70% .
+Higher Second class (2:1) is equivalent to 60% => 69.99%.
+Lower second class (2:2) is equivalent to 50% => 59.99%
+Third class (3rd) is equivalent to 40% => 49.99%
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

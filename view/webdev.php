@@ -1,3 +1,8 @@
+<! --
+Add task to module web dev
+
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>
@@ -22,12 +27,15 @@
   <button class="w3-bar-item w3-button sector-heading active ">Study Diary</button>
   <div class="w3-bar-block sub-sector">
     <a href="webdev.php" class="w3-bar-item w3-button sub-subsector active">Web Development</a>
+    <button class="" onclick="removeModule()">x</button>
     <a href="ml.php" class="w3-bar-item w3-button sub-subsector">Machine Learning</a>
   </div>
   <button class="w3-bar-item w3-button w3-right" onclick="addSubSubSector()">+ Add Course</button>
+
   <br><br><br>
   <a href="mygrades.php" class="w3-bar-item w3-button sector-heading ">My Grades</a>  
   <a href="gradecalc.php" class="w3-bar-item w3-button sector-heading ">Grade Calculator</a>
+  
 </div>
 
 <!-- Page Content -->
@@ -77,9 +85,34 @@
     var newSubSubSector = document.createElement("a");
     newSubSubSector.className = "w3-bar-item w3-button sub-subsector";
     newSubSubSector.textContent = newCourse;
-    subSector.appendChild(newSubSubSector);
+
+    // Create remove button
+    var removeButton = document.createElement("button");
+    removeButton.className = "";
+    removeButton.textContent = "X";
+    removeButton.onclick = function() {
+      newSubSubSector.remove();
+      removeButton.remove();
+    }
+
+    // Create div to contain sub-subsector and remove button
+    var div = document.createElement("div");
+    div.className = "w3-bar";
+
+    // Append sub-subsector and remove button to div
+    div.appendChild(newSubSubSector);
+    div.appendChild(removeButton);
+
+    // Append div to sub-sector
+    subSector.appendChild(div);
   }
 }
+// Remove the module from the sidebar
+function removeModule() {
+  var module = document.querySelector(".sub-sector .active");
+  module.parentNode.removeChild(module);
+}
+
 
     // Save tasks to localStorage
 function saveTasks() {

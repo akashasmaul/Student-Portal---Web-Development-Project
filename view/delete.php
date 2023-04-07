@@ -1,3 +1,7 @@
+
+<! --
+for deleting a food record breakfast
+ --!>
 <?php
 
 if (isset($_GET["id"])) {
@@ -12,5 +16,5 @@ if (isset($_GET["id"])) {
         $all["food"] = array_values($all["food"]);
         file_put_contents("../data/storage.json", json_encode($all));
     }
-    header("Location: food.php");
+    header("Location: calbymeal.php");
 }

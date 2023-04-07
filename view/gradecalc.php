@@ -1,3 +1,7 @@
+<! --
+grade calculator page, need to select option
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

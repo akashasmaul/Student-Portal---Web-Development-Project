@@ -1,15 +1,7 @@
 
-function addSubSubSector() {
-    var activeSector = document.querySelector(".sector-heading.active");
-    var newYear = prompt("Enter the number of the year:");
-    if (activeSector.nextElementSibling && activeSector.nextElementSibling.classList.contains("sub-sector")) {
-      var subSector = activeSector.nextElementSibling;
-      var newSubSubSector = document.createElement("a");
-      newSubSubSector.className = "w3-bar-item w3-button sub-subsector";
-      newSubSubSector.textContent = "Year " + newYear;
-      subSector.appendChild(newSubSubSector);
-    }
-  }
+
+
+
   function addAssignmentToTable(tableId) {
     // find the table element
     var table = document.getElementById(tableId);

@@ -1,3 +1,10 @@
+<! --
+This code uses PDO instead of mysqli and uses prepared statements to prevent SQL injection attacks¹.
+
+code page for update profile
+
+ --!>
+
 <?php
 // Start the session
 session_start();
@@ -15,7 +22,13 @@ define('DB_PASS', '');
 define('DB_NAME', 'info');
 
 // Create database connection
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+try {
+    $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -33,12 +46,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 }
-    // Update user information in database
+// Update user information in database
 $username = $_SESSION['username'];
-$sql = "UPDATE users SET name='$name', email='$email', password='$password', profile_picture='$profile_pic' WHERE username='$username'";
-mysqli_query($conn, $sql);
+$sql = "UPDATE users SET name=:name, email=:email, password=:password, profile_picture=:profile_pic WHERE username=:username";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':name', $name);
+$stmt->bindParam(':email', $email);
+$stmt->bindParam(':password', $password);
+$stmt->bindParam(':profile_pic', $profile_pic);
+$stmt->bindParam(':username', $username);
+$stmt->execute();
 
-if (mysqli_query($conn, $sql)) {
+if ($stmt) {
     // If the update was successful, redirect to the profile page
     echo '<script>';
     echo 'if (window.confirm("Record updated successfully. Click OK to proceed to profile page.")) { window.location.href = "../view/portal.php"; }';
@@ -50,5 +69,5 @@ if (mysqli_query($conn, $sql)) {
 }
 
 // Close the database connection
-mysqli_close($conn);
+$conn = null;
 ?>

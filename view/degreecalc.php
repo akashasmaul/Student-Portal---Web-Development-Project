@@ -1,3 +1,8 @@
+<! --
+for calculating degree
+
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

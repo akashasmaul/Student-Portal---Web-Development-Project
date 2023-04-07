@@ -1,3 +1,7 @@
+<! --
+study track page 
+ --!>
+
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>

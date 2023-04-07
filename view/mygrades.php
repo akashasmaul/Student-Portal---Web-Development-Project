@@ -1,3 +1,7 @@
+<! --
+my grades page, need to select option for further functionalities
+
+ --!>
 <?php include '../control/conn.php' ?>
 
 <!DOCTYPE html>
@@ -56,12 +60,23 @@ function addSubSubSector() {
   var newYear = prompt("Enter the number of the year:");
   if (activeSector.nextElementSibling && activeSector.nextElementSibling.classList.contains("sub-sector")) {
     var subSector = activeSector.nextElementSibling;
-    var newSubSubSector = document.createElement("a");
-    newSubSubSector.className = "w3-bar-item w3-button sub-subsector";
-    newSubSubSector.textContent = "Year " + newYear;
+    var newSubSubSector = document.createElement("div");
+    newSubSubSector.className = "w3-bar";
+    var newSubSubSectorText = document.createElement("a");
+    newSubSubSectorText.className = "w3-bar-item w3-button sub-subsector";
+    newSubSubSectorText.textContent = "Year " + newYear;
+    newSubSubSector.appendChild(newSubSubSectorText);
+    var removeButton = document.createElement("button");
+    removeButton.className = "";
+    removeButton.textContent = "x";
+    removeButton.onclick = function() {
+      newSubSubSector.remove();
+    };
+    newSubSubSector.appendChild(removeButton);
     subSector.appendChild(newSubSubSector);
   }
 }
+
 </script>
 </body>
 </html>
